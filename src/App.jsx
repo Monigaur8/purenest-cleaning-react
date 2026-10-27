@@ -230,7 +230,7 @@ function App() {
               <div className="eyebrow eyebrow-light"><span className="eyebrow-line" /> YOUR FRESH START</div>
               <h2>Ready for a little<br />more <em>breathing room?</em></h2>
               <p>Tell us what your space needs. We’ll help you find a simple plan that fits your life.</p>
-              <div className="contact-detail"><span><Mail size={18} /></span><div><small>EMAIL US</small><strong>hello@purenest.example</strong></div></div>
+              <div className="contact-detail"><span><Mail size={18} /></span><div><small>EMAIL US</small><strong>monica@purenest.example</strong></div></div>
               <div className="contact-detail"><span><Phone size={18} /></span><div><small>GIVE US A CALL</small><strong>+44 (0) 141 555 0148</strong></div></div>
               <div className="contact-detail"><span><MapPin size={18} /></span><div><small>OUR SAMPLE SERVICE AREA</small><strong>Glasgow & nearby areas</strong></div></div>
               <p className="sample-details">Sample business details for portfolio use — replace before publishing.</p>
