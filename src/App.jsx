@@ -67,6 +67,7 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", service: "Home cleaning", message: "" });
   const [notice, setNotice] = useState("");
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/meaaknle";
 
   const closeMenu = () => setMenuOpen(false);
   const updateForm = (event) => {
@@ -76,13 +77,47 @@ function App() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
-      setNotice("Please complete your name, email and message.");
-      return;
+
+  if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+    setNotice("Please complete your name, email and message.");
+    return;
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+    setNotice("Please enter a valid email address.");
+    return;
+  }
+
+  setNotice("Sending your enquiry...");
+
+  try {
+    const response = await fetch(FORMSPREE_ENDPOINT, {
+      method: "POST",
+      body: new URLSearchParams({
+        name: form.name,
+        email: form.email,
+        service: form.service,
+        message: form.message,
+      }),
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (response.ok) {
+      setNotice("Thanks! Your message has been sent.");
+      setForm({
+        name: "",
+        email: "",
+        service: "Home cleaning",
+        message: "",
+      });
+    } else {
+      setNotice("Message could not be sent. Please try again.");
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      setNotice("Please enter a valid email address.");
-      return;
+  } catch (error) {
+    setNotice("Network error. Please try again.");
+  }
     }
     setNotice("Demo only: your details have not been sent. Connect a secure form provider before accepting enquiries.");
     setForm({ name: "", email: "", service: "Home cleaning", message: "" });
@@ -246,7 +281,9 @@ function App() {
               <label>Tell us about your space<textarea name="message" value={form.message} onChange={updateForm} placeholder="A few details about what you need…" rows="4" /></label>
               {notice && <p className={`form-notice ${notice.startsWith("Thanks") ? "success" : ""}`} role="status">{notice}</p>}
               <button className="button button-primary form-submit" type="submit">Send enquiry <ArrowRight size={17} /></button>
-              <p className="form-footnote"><ShieldCheck size={14} /> Portfolio demonstration only — submitting does not send an enquiry.</p>
+             <p className="form-footnote">
+  <ShieldCheck size={14} /> Your enquiry will be submitted securely.
+</p>
             </form>
           </div>
         </section>
