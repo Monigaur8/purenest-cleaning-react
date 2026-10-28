@@ -75,52 +75,52 @@ function App() {
     setNotice("");
   };
 
-  function handleSubmit(event) {
+  
+  async function handleSubmit(event) {
     event.preventDefault();
 
-  if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
-    setNotice("Please complete your name, email and message.");
-    return;
-  }
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+      setNotice("Please complete your name, email and message.");
+      return;
+    }
 
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-    setNotice("Please enter a valid email address.");
-    return;
-  }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      setNotice("Please enter a valid email address.");
+      return;
+    }
 
-  setNotice("Sending your enquiry...");
+    setNotice("Sending your enquiry...");
 
-  try {
-    const response = await fetch(FORMSPREE_ENDPOINT, {
-      method: "POST",
-      body: new URLSearchParams({
-        name: form.name,
-        email: form.email,
-        service: form.service,
-        message: form.message,
-      }),
-      headers: {
-        Accept: "application/json",
-      },
-    });
-
-    if (response.ok) {
-      setNotice("Thanks! Your message has been sent.");
-      setForm({
-        name: "",
-        email: "",
-        service: "Home cleaning",
-        message: "",
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        body: new URLSearchParams({
+          name: form.name,
+          email: form.email,
+          service: form.service,
+          message: form.message,
+        }),
+        headers: {
+          Accept: "application/json",
+        },
       });
-    } else {
-      setNotice("Message could not be sent. Please try again.");
+
+      if (response.ok) {
+        setNotice("Thanks! Your message has been sent.");
+        setForm({
+          name: "",
+          email: "",
+          service: "Home cleaning",
+          message: "",
+        });
+      } else {
+        setNotice("Message could not be sent. Please try again.");
+      }
+    } catch (error) {
+      setNotice("Network error. Please try again.");
     }
-  } catch (error) {
-    setNotice("Network error. Please try again.");
   }
-    }
-    setNotice("Demo only: your details have not been sent. Connect a secure form provider before accepting enquiries.");
-    setForm({ name: "", email: "", service: "Home cleaning", message: "" });
+
   }
 
   return (
