@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   ArrowDownRight, ArrowRight, Check, CheckCircle2, ChevronDown,
   Clock3, Leaf, Menu, ShieldCheck, Sparkles, Star, X,
@@ -85,7 +84,7 @@ function App() {
       setNotice("Please enter a valid email address.");
       return;
     }
-    setNotice("Thanks! This demo form is working on the front end. Connect a form service to receive real enquiries.");
+    setNotice("Demo only: your details have not been sent. Connect a secure form provider before accepting enquiries.");
     setForm({ name: "", email: "", service: "Home cleaning", message: "" });
   }
 
@@ -127,7 +126,7 @@ function App() {
                 <div className="avatar-stack" aria-hidden="true">
                   <span className="avatar avatar-one">J</span><span className="avatar avatar-two">M</span><span className="avatar avatar-three">A</span>
                 </div>
-                <div><div className="stars"><Star /><Star /><Star /><Star /><Star /></div><p><strong>Loved by busy people</strong><span>Thoughtful care, every visit</span></p></div>
+                <div><div className="stars"><Star /><Star /><Star /><Star /><Star /></div><p><strong>Made for busy lives</strong><span>Thoughtful care, every visit</span></p></div>
               </div>
             </div>
 
@@ -215,7 +214,7 @@ function App() {
             <div className="reviews-heading"><div><div className="eyebrow"><span className="eyebrow-line" /> KIND WORDS</div><h2>A clean space.<br /><em>A happy place.</em></h2></div><p>Little moments of relief are what we’re here for.</p></div>
             <div className="review-grid">
               {testimonials.map((review, index) => <article className="review-card" key={review.name}>
-                <div className="review-stars" aria-label="5 out of 5 stars"><Star /><Star /><Star /><Star /><Star /></div>
+                <div className="review-stars" aria-label="Illustrative five-star rating"><Star /><Star /><Star /><Star /><Star /></div>
                 <span className="quote-mark">“</span><blockquote>{review.quote}</blockquote>
                 <div className="review-person"><span className={`review-avatar review-avatar-${index + 1}`}>{review.name.charAt(0)}</span><span><strong>{review.name}</strong><small>{review.detail}</small></span></div>
               </article>)}
@@ -229,8 +228,8 @@ function App() {
             <div className="contact-copy">
               <div className="eyebrow eyebrow-light"><span className="eyebrow-line" /> YOUR FRESH START</div>
               <h2>Ready for a little<br />more <em>breathing room?</em></h2>
-              <p>Tell us what your space needs. We’ll help you find a simple plan that fits your life.</p>
-              <div className="contact-detail"><span><Mail size={18} /></span><div><small>EMAIL US</small><strong>monica@purenest.example</strong></div></div>
+              <p>Explore this sample enquiry experience. This is a portfolio concept, not an active cleaning business.</p>
+              <div className="contact-detail"><span><Mail size={18} /></span><div><small>EMAIL US</small><strong>hello@purenest.example</strong></div></div>
               <div className="contact-detail"><span><Phone size={18} /></span><div><small>GIVE US A CALL</small><strong>+44 (0) 141 555 0148</strong></div></div>
               <div className="contact-detail"><span><MapPin size={18} /></span><div><small>OUR SAMPLE SERVICE AREA</small><strong>Glasgow & nearby areas</strong></div></div>
               <p className="sample-details">Sample business details for portfolio use — replace before publishing.</p>
@@ -247,7 +246,7 @@ function App() {
               <label>Tell us about your space<textarea name="message" value={form.message} onChange={updateForm} placeholder="A few details about what you need…" rows="4" /></label>
               {notice && <p className={`form-notice ${notice.startsWith("Thanks") ? "success" : ""}`} role="status">{notice}</p>}
               <button className="button button-primary form-submit" type="submit">Send enquiry <ArrowRight size={17} /></button>
-              <p className="form-footnote"><ShieldCheck size={14} /> Demo form — no details are sent or stored.</p>
+              <p className="form-footnote"><ShieldCheck size={14} /> Portfolio demonstration only — submitting does not send an enquiry.</p>
             </form>
           </div>
         </section>
