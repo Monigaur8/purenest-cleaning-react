@@ -76,7 +76,7 @@ function App() {
   };
 
   
-  async function handleSubmit(event) {
+    async function handleSubmit(event) {
     event.preventDefault();
 
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
@@ -119,8 +119,6 @@ function App() {
     } catch (error) {
       setNotice("Network error. Please try again.");
     }
-  }
-
   }
 
   return (
