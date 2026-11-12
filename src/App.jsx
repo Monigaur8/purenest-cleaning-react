@@ -67,7 +67,6 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", service: "Home cleaning", message: "" });
   const [notice, setNotice] = useState("");
-  const FORMSPREE_ENDPOINT = "https://formspree.io/f/meaaknle";
 
   const closeMenu = () => setMenuOpen(false);
   const updateForm = (event) => {
@@ -75,49 +74,26 @@ function App() {
     setNotice("");
   };
 
-  
-    async function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-
-    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
-      setNotice("Please complete your name, email and message.");
+    setNotice("");
+    const endpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT;
+    if (!endpoint) {
+      setNotice("The form is not connected yet. Add your Formspree endpoint to the .env file before testing submissions.");
       return;
     }
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      setNotice("Please enter a valid email address.");
-      return;
-    }
-
-    setNotice("Sending your enquiry...");
-
     try {
-      const response = await fetch(FORMSPREE_ENDPOINT, {
+      const response = await fetch(endpoint, {
         method: "POST",
-        body: new URLSearchParams({
-          name: form.name,
-          email: form.email,
-          service: form.service,
-          message: form.message,
-        }),
-        headers: {
-          Accept: "application/json",
-        },
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ ...form, _subject: `PureNest portfolio enquiry — ${form.service}` })
       });
-
-      if (response.ok) {
-        setNotice("Thanks! Your message has been sent.");
-        setForm({
-          name: "",
-          email: "",
-          service: "Home cleaning",
-          message: "",
-        });
-      } else {
-        setNotice("Message could not be sent. Please try again.");
-      }
+      const result = await response.json();
+      if (!response.ok) throw new Error(result?.errors?.[0]?.message || "Submission failed");
+      setNotice("Thanks — your message was sent successfully.");
+      setForm({ name: "", email: "", service: "Home cleaning", message: "" });
     } catch (error) {
-      setNotice("Network error. Please try again.");
+      setNotice(error.message || "Something went wrong. Please try again.");
     }
   }
 
@@ -262,26 +238,23 @@ function App() {
               <div className="eyebrow eyebrow-light"><span className="eyebrow-line" /> YOUR FRESH START</div>
               <h2>Ready for a little<br />more <em>breathing room?</em></h2>
               <p>Explore this sample enquiry experience. This is a portfolio concept, not an active cleaning business.</p>
-              <div className="contact-detail"><span><Mail size={18} /></span><div><small>EMAIL US</small><strong>mgaur1586@gmail.com</strong></div></div>
-              <div className="contact-detail"><span><Phone size={18} /></span><div><small>GIVE US A CALL</small><strong>+44 (0) 141 555 0148</strong></div></div>
-              <div className="contact-detail"><span><MapPin size={18} /></span><div><small>OUR SAMPLE SERVICE AREA</small><strong>Glasgow & nearby areas</strong></div></div>
-              <p className="sample-details">Sample business details for portfolio use — replace before publishing.</p>
+              <div className="contact-detail"><span><Mail size={18} /></span><div><small>FORM DEMONSTRATION</small><strong>Powered by Formspree</strong></div></div>
+              <div className="contact-detail"><span><MapPin size={18} /></span><div><small>PROJECT TYPE</small><strong>Glasgow-inspired service brand concept</strong></div></div>
+              <p className="sample-details">PureNest is a fictional brand created to demonstrate frontend development skills. Enquiries submitted here are delivered to the Formspree inbox configured by the portfolio owner.</p>
             </div>
             <form className="contact-form" onSubmit={handleSubmit} noValidate>
               <div className="form-heading"><span>LET’S TALK</span><h3>Tell us a little more.</h3><p>We’ll start with the basics.</p></div>
               <div className="form-row">
-                <label>Your name<input name="name" value={form.name} onChange={updateForm} placeholder="e.g. Alex Morgan" autoComplete="name" /></label>
-                <label>Email address<input name="email" value={form.email} onChange={updateForm} placeholder="alex@example.com" type="email" autoComplete="email" /></label>
+                <label>Your name<input name="name" value={form.name} onChange={updateForm} placeholder="e.g. Alex Morgan" autoComplete="name" required /></label>
+                <label>Email address<input name="email" value={form.email} onChange={updateForm} placeholder="alex@example.com" type="email" autoComplete="email" required /></label>
               </div>
               <label>What can we help with?
                 <span className="select-wrap"><select name="service" value={form.service} onChange={updateForm}><option>Home cleaning</option><option>Office cleaning</option><option>Deep cleaning</option><option>Move-in / move-out</option><option>Something else</option></select><ChevronDown size={16} /></span>
               </label>
-              <label>Tell us about your space<textarea name="message" value={form.message} onChange={updateForm} placeholder="A few details about what you need…" rows="4" /></label>
+              <label>Tell us about your space<textarea name="message" value={form.message} onChange={updateForm} placeholder="A few details about what you need…" rows="4" required /></label>
               {notice && <p className={`form-notice ${notice.startsWith("Thanks") ? "success" : ""}`} role="status">{notice}</p>}
               <button className="button button-primary form-submit" type="submit">Send enquiry <ArrowRight size={17} /></button>
-             <p className="form-footnote">
-  <ShieldCheck size={14} /> Your enquiry will be submitted securely.
-</p>
+              <p className="form-footnote"><ShieldCheck size={14} /> Portfolio demo form. Submissions go to the Formspree account configured for this project.</p>
             </form>
           </div>
         </section>

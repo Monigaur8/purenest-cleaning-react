@@ -189,3 +189,28 @@ h1 em, h2 em { color: #71927a; font-weight: 500; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+/* Portfolio polish: refined surfaces, clearer hierarchy and resilient interactions. */
+:root { --cream: #f7f8f2; --green: #315f49; --green-dark: #203f30; --line: #dce5d9; }
+::selection { background: #dce9dc; color: #203f30; }
+.announcement { min-height: 40px; background: #e4ede2; }
+.header { background: rgba(247,248,242,.94); }
+.nav-cta, .button { border-radius: 999px; }
+.hero { padding-top: 84px; }
+.hero-art { border-radius: 46% 46% 18px 18px; box-shadow: 0 24px 65px rgba(36,70,50,.10); }
+.service-card, .review-card { border-radius: 15px; }
+.service-card { box-shadow: 0 5px 22px rgba(32,63,48,.035); }
+.service-card:hover { box-shadow: 0 20px 42px rgba(32,63,48,.10); }
+.about-photo { border-radius: 18px; overflow: hidden; }
+.about-stamp { border-radius: 14px; }
+.contact-form { border-radius: 18px; box-shadow: 0 22px 60px rgba(12,34,22,.18); }
+.contact-form input, .contact-form select, .contact-form textarea { border-radius: 9px; }
+.form-submit { width: 100%; }
+.form-notice { padding: 12px 14px; border-radius: 9px; background: #fff0e8; color: #8b4328; line-height: 1.55; }
+.form-notice.success { background: #e7f3e8; color: #245b37; }
+.demo-note { max-width: 760px; margin: 22px auto 0; color: var(--muted); font-size: 11px; line-height: 1.7; text-align: center; }
+.sample-details { max-width: 420px; line-height: 1.7; }
+@media (max-width: 720px) {
+  .hero { padding-top: 55px; }
+  .hero-art { box-shadow: 0 14px 35px rgba(36,70,50,.08); }
+  .announcement { padding-inline: 12px; font-size: 10px; flex-wrap: wrap; }
+}

@@ -1,49 +1,75 @@
-# PureNest Cleaning Co. — React Landing Page
+# PureNest Cleaning Co. — React portfolio project
 
-A responsive, portfolio-ready landing page concept for a fictional cleaning business. Built with React, Vite, plain CSS and Lucide icons.
+A responsive cleaning-service landing-page concept built to demonstrate frontend development skills. PureNest is a fictional brand; this project is not an operating cleaning business.
+
+## Tech stack
+
+- React 18
+- JavaScript (ES6+)
+- Vite 6
+- HTML5 and custom CSS
+- Lucide React
+- Formspree (contact-form delivery)
 
 ## Features
 
-- Responsive layout for desktop, tablet and mobile
-- Sticky navigation with working mobile menu
-- Hero, services, about, process, testimonials and contact sections
-- Custom CSS illustrations (no paid stock photography required)
-- Contact form front-end validation and status feedback
-- Semantic sections, form labels, keyboard focus styles and reduced-motion support
+- Responsive navigation and page layout
+- Reusable React components and data-driven service/review cards
+- Service, about, process, reviews and contact sections
+- Accessible form labels, required fields and submission feedback
+- Formspree integration through an environment variable
+- SEO metadata, social-sharing metadata and custom SVG favicon
 
 ## Run locally
 
-You need Node.js (LTS) installed.
+Requirements: Node.js 18+ and npm.
 
 ```bash
 npm install
+cp .env.example .env
 npm run dev
 ```
 
-Open the local URL shown in your terminal (usually `http://localhost:5173`).
+Open the local URL printed by Vite.
 
-Create a production build:
+## Configure Formspree
+
+1. Create a form in your Formspree account.
+2. Copy the form endpoint (the URL in the format `https://formspree.io/f/yourFormId`).
+3. Open `.env` and replace the example value:
+
+   ```env
+   VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/yourFormId
+   ```
+
+4. Restart the Vite server after changing `.env`.
+5. Submit a test enquiry and confirm it appears in the Formspree inbox. Check spam and any Formspree verification email if it does not arrive.
+
+**Important:** `.env` is excluded from Git. Add the same `VITE_FORMSPREE_ENDPOINT` variable in Vercel → Project → Settings → Environment Variables, then redeploy. The endpoint is intended to be public client-side configuration; never put private API keys or passwords in a `VITE_` variable.
+
+Until a real endpoint is configured, the form will show a setup message and will not claim that an enquiry was sent.
+
+## Production build
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## Before publishing or showing as a real client website
+Vite outputs the production site to `dist/`.
 
-- Replace the fictional brand name and sample contact details.
-- The `.example` email and phone number are placeholders.
-- The testimonial quotes and names are illustrative, not verified reviews. Replace them with genuine approved testimonials or remove the section.
-- The contact form is front-end only. It does not send or store enquiries. Connect a backend or reputable form service before launch.
-- Review the copy, service area, accessibility, SEO, and mobile layout with the real business.
-- Google Fonts are loaded remotely; replace them if your deployment needs locally hosted fonts.
+## Deploy to Vercel
 
-## Portfolio description (edit to match your actual work)
+- Import the GitHub repository into Vercel.
+- Framework preset: Vite.
+- Build command: `npm run build`.
+- Output directory: `dist`.
+- Add `VITE_FORMSPREE_ENDPOINT` in Vercel Environment Variables.
+- Deploy, then test the live contact form and mobile layout.
 
-**PureNest Cleaning Co. — Responsive React Landing Page**
+## Portfolio integrity
 
-Designed and built a responsive small-business landing page using React, Vite and custom CSS. Includes reusable service cards, responsive navigation, a contact form with client-side validation, and sections structured around a clear enquiry journey.
-
-## Suggested screenshots
-
-Capture the full desktop page and one mobile viewport after running the project locally. Only describe features you have personally tested.
+- Testimonials are illustrative placeholders, not verified customer reviews.
+- The brand, service claims, and business details are fictional demonstration content.
+- Do not present this concept as a real client project or claim real customer results.
+- Replace placeholder content before adapting it for a real business.
