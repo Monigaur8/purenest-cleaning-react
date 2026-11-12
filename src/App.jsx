@@ -65,7 +65,13 @@ function Brand({ onClick }) {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", service: "Home cleaning", message: "" });
+ const [form, setForm] = useState({
+  name: "",
+  email: "",
+  phone: "",
+  service: "Home cleaning",
+  message: ""
+});
   const [notice, setNotice] = useState("");
 
   const closeMenu = () => setMenuOpen(false);
@@ -91,7 +97,13 @@ function App() {
       const result = await response.json();
       if (!response.ok) throw new Error(result?.errors?.[0]?.message || "Submission failed");
       setNotice("Thanks — your message was sent successfully.");
-      setForm({ name: "", email: "", service: "Home cleaning", message: "" });
+   setForm({
+  name: "",
+  email: "",
+  phone: "",
+  service: "Home cleaning",
+  message: ""
+});
     } catch (error) {
       setNotice(error.message || "Something went wrong. Please try again.");
     }
@@ -242,12 +254,25 @@ function App() {
               <div className="contact-detail"><span><MapPin size={18} /></span><div><small>PROJECT TYPE</small><strong>Glasgow-inspired service brand concept</strong></div></div>
               <p className="sample-details">PureNest is a fictional brand created to demonstrate frontend development skills. Enquiries submitted here are delivered to the Formspree inbox configured by the portfolio owner.</p>
             </div>
-            <form className="contact-form" onSubmit={handleSubmit} noValidate>
+            <form className="contact-form" onSubmit={handleSubmit}>
               <div className="form-heading"><span>LET’S TALK</span><h3>Tell us a little more.</h3><p>We’ll start with the basics.</p></div>
               <div className="form-row">
                 <label>Your name<input name="name" value={form.name} onChange={updateForm} placeholder="e.g. Alex Morgan" autoComplete="name" required /></label>
                 <label>Email address<input name="email" value={form.email} onChange={updateForm} placeholder="alex@example.com" type="email" autoComplete="email" required /></label>
               </div>
+
+<label>
+  Phone number <span className="optional-label">(Optional)</span>
+  <input
+    name="phone"
+    type="tel"
+    value={form.phone}
+    onChange={updateForm}
+    placeholder="+44 7XXX XXXXXX"
+    autoComplete="tel"
+  />
+</label>
+
               <label>What can we help with?
                 <span className="select-wrap"><select name="service" value={form.service} onChange={updateForm}><option>Home cleaning</option><option>Office cleaning</option><option>Deep cleaning</option><option>Move-in / move-out</option><option>Something else</option></select><ChevronDown size={16} /></span>
               </label>

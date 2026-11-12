@@ -214,3 +214,13 @@ h1 em, h2 em { color: #71927a; font-weight: 500; }
   .hero-art { box-shadow: 0 14px 35px rgba(36,70,50,.08); }
   .announcement { padding-inline: 12px; font-size: 10px; flex-wrap: wrap; }
 }
+.optional-label {
+  color: #89978c;
+  font-size: 9px;
+  font-weight: 400;
+  margin-left: 4px;
+}
+
+.contact-form input[type="tel"] {
+  width: 100%;
+}
